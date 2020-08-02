@@ -20,7 +20,8 @@ import { Photos } from 'types/index';
 import RNShake from 'react-native-shake';
 import { RootState } from 'modules/reducer';
 import ScreenWrapper from 'components/ScreenWrapper';
-import { VIEWABILITY_CONFIG } from 'config/viewabilityConfig';
+import { VIEWABILITY_CONFIG } from 'core/config/viewabilityConfig';
+import { useAsyncStorage } from 'core/hooks/useAsyncStorage';
 import { getPhotos } from 'modules/photos/actions/getPhotos';
 import { styles } from 'screens/Images.styles';
 import { takePhotos } from 'modules/photos/actions/takePhotos';
@@ -33,6 +34,7 @@ const DEFAULT_PAGE = 1;
 
 const ImageList: React.FC<Props> = ({ navigation }) => {
     const dispatch = useDispatch();
+    const { getValuesFromStorage } = useAsyncStorage();
 
     const { pending, items, selectedItems } = useSelector(
         (state: RootState) => {
@@ -45,6 +47,20 @@ const ImageList: React.FC<Props> = ({ navigation }) => {
     useEffect(() => {
         if (!pending) {
             dispatch(getPhotos(page));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const checkAsyncStorage = async (): Promise<void> => {
+        const storageItems = await getValuesFromStorage('favoritesImage');
+        if (storageItems.length !== 0) {
+            dispatch(takePhotos(storageItems));
+        }
+    };
+
+    useEffect(() => {
+        if (selectedItems.length === 0) {
+            checkAsyncStorage();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -86,7 +102,7 @@ const ImageList: React.FC<Props> = ({ navigation }) => {
         }
     };
 
-    const handleRefresh = () => {
+    const handleRefresh = (): void => {
         dispatch(getPhotos(DEFAULT_PAGE));
         setPage(DEFAULT_PAGE);
     };

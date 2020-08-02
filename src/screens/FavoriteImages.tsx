@@ -12,7 +12,7 @@ import Image from 'components/Image';
 import RNShake from 'react-native-shake';
 import { RootState } from 'modules/reducer';
 import ScreenWrapper from 'components/ScreenWrapper';
-import { VIEWABILITY_CONFIG } from 'config/viewabilityConfig';
+import { VIEWABILITY_CONFIG } from 'core/config/viewabilityConfig';
 import { styles } from 'screens/Images.styles';
 import { takePhotos } from 'modules/photos/actions/takePhotos';
 

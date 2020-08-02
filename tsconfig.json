@@ -31,10 +31,9 @@
             "components": ["components/*"],
             "modules": ["modules/*"],
             "screens": ["screens/*"],
-            "services": ["services/*"],
+            "core": ["core/*"],
             "types": ["types/*"],
             "theme": ["theme/*"],
-            "config": ["config/*"]
         }
     },
     "exclude": [

@@ -30,7 +30,8 @@ const Image: React.FC<Props> = ({ src }) => {
             style={{ width: WIDTH - 45, height: 400, borderRadius: 12 }}
             source={{
                 uri: src,
-                priority: FastImage.priority.normal
+                priority: FastImage.priority.high,
+                cache: FastImage.cacheControl.immutable
             }}
             resizeMode={FastImage.resizeMode.cover}
         >

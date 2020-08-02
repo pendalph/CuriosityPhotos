@@ -16,10 +16,9 @@ module.exports = {
                     components: './src/components',
                     modules: './src/modules',
                     screens: './src/screens',
-                    services: './src/services',
                     types: './src/types',
                     theme: './src/theme',
-                    config: './src/config'
+                    core: './src/core'
                 }
             }
         ]

@@ -5,7 +5,7 @@ import {
     PHOTOS_FAILURE
 } from 'modules/actionTypes';
 import { Dispatch } from 'redux';
-import Client from 'services/api/client';
+import Client from 'core/services/api/client';
 
 export const getPhotosRequest = () => {
     return {
@@ -38,8 +38,7 @@ export const getPhotos = (page: number) => {
         try {
             dispatch(getPhotosRequest());
             const result = await Client.getPhotos(page);
-            // eslint-disable-next-line no-console
-            console.log(result);
+
             if (result.status === 200) {
                 dispatch(
                     getPhotosSuccess(
